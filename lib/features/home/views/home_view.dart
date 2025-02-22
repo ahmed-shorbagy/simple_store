@@ -144,45 +144,4 @@ class _HomeViewState extends State<HomeView> {
       itemBuilder: (context, index) => const ProductCardShimmer(),
     );
   }
-
-  Widget _buildErrorView(String message) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(
-              Icons.error_outline,
-              color: AppTheme.errorColor,
-              size: 64,
-            ),
-            const SizedBox(height: 16),
-            Text(
-              message,
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: AppTheme.errorColor,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton.icon(
-              onPressed: () {
-                context.read<HomeCubit>().loadProducts();
-              },
-              icon: const Icon(Icons.refresh),
-              label: const Text('Try Again'),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 12,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }

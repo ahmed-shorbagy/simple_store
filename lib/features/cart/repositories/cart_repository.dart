@@ -19,7 +19,6 @@ class CartRepository {
         final enrichedProducts = await Future.wait(
           products.map((product) async {
             final productId = product['productId'] as int;
-            final quantity = product['quantity'] as int;
 
             final productResponse = await _dio.get(
               '${ApiConstants.baseUrl}/products/$productId',

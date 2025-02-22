@@ -1,83 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
+import 'package:simple_store/features/auth/manager/auth_cubit.dart';
+import 'package:simple_store/features/auth/manager/auth_state.dart';
 
-import '../../../core/theme/app_colors.dart';
-import '../../../core/theme/app_styles.dart';
-import '../cubits/auth_cubit.dart';
-
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class SignupView extends StatefulWidget {
+  const SignupView({super.key});
 
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  State<SignupView> createState() => _SignupViewState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _SignupViewState extends State<SignupView> {
   final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
+  final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    _nameController.dispose();
     _emailController.dispose();
+    _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
-  }
-
-  void _handleRegister() {
-    if (_formKey.currentState?.validate() ?? false) {
-      context.read<AuthCubit>().register(
-            _nameController.text.trim(),
-            _emailController.text.trim(),
-            _passwordController.text.trim(),
-          );
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Register'),
+        title: const Text('Sign Up'),
       ),
-      body: BlocListener<AuthCubit, AuthState>(
+      body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
-          if (state is AuthAuthenticated) {
-            context.go('/home');
+          if (state is AuthError) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text(state.message)),
+            );
+          } else if (state is AuthAuthenticated) {
+            // Navigate to home or dashboard
+            Navigator.pushReplacementNamed(context, '/home');
           }
         },
-        child: SafeArea(
-          child: Padding(
+        builder: (context, state) {
+          return SingleChildScrollView(
             padding: const EdgeInsets.all(16.0),
             child: Form(
               key: _formKey,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  const Text(
-                    'Create Account',
-                    style: AppStyles.heading1,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 32),
-                  TextFormField(
-                    controller: _nameController,
-                    decoration: const InputDecoration(
-                      labelText: 'Name',
-                      border: OutlineInputBorder(),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your name';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
                   TextFormField(
                     controller: _emailController,
                     decoration: const InputDecoration(
@@ -88,6 +59,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email';
+                      }
+                      if (!value.contains('@')) {
+                        return 'Please enter a valid email';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _usernameController,
+                    decoration: const InputDecoration(
+                      labelText: 'Username',
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your username';
                       }
                       return null;
                     },
@@ -111,34 +99,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     },
                   ),
                   const SizedBox(height: 24),
-                  BlocBuilder<AuthCubit, AuthState>(
-                    builder: (context, state) {
-                      return ElevatedButton(
-                        onPressed:
-                            state is AuthLoading ? null : _handleRegister,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: AppColors.authButtonColor,
-                          padding: const EdgeInsets.symmetric(vertical: 16),
-                        ),
-                        child: state is AuthLoading
-                            ? const CircularProgressIndicator()
-                            : const Text(
-                                'Register',
-                                style: AppStyles.button,
-                              ),
-                      );
-                    },
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: state is AuthLoading
+                          ? null
+                          : () {
+                              if (_formKey.currentState!.validate()) {
+                                context.read<AuthCubit>().signup(
+                                      email: _emailController.text,
+                                      username: _usernameController.text,
+                                      password: _passwordController.text,
+                                    );
+                              }
+                            },
+                      child: state is AuthLoading
+                          ? const CircularProgressIndicator()
+                          : const Text('Sign Up'),
+                    ),
                   ),
                   const SizedBox(height: 16),
                   TextButton(
-                    onPressed: () => context.pop(),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
                     child: const Text('Already have an account? Login'),
                   ),
                 ],
               ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

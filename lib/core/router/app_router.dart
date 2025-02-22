@@ -1,8 +1,8 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:simple_store/features/auth/views/login_screen.dart';
-import 'package:simple_store/features/auth/views/register_screen.dart';
-import 'package:simple_store/features/cart/views/cart_screen.dart';
-import 'package:simple_store/features/home/views/home_screen.dart';
+import 'package:simple_store/features/auth/manager/auth_cubit.dart';
+import 'package:simple_store/features/auth/views/login_view.dart';
+import 'package:simple_store/features/auth/views/signup_view.dart';
 import 'package:simple_store/features/splash/presentation/screens/splash_screen.dart';
 
 class AppRoutes {
@@ -30,22 +30,18 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppRoutes.kLoginView,
       name: AppRoutes.kLoginName,
-      builder: (context, state) => const LoginScreen(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => AuthCubit(),
+        child: const LoginView(),
+      ),
     ),
     GoRoute(
       path: AppRoutes.kRegisterView,
       name: AppRoutes.kRegisterName,
-      builder: (context, state) => const RegisterScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.kHomeView,
-      name: AppRoutes.kHomeName,
-      builder: (context, state) => const HomeScreen(),
-    ),
-    GoRoute(
-      path: AppRoutes.kCartView,
-      name: AppRoutes.kCartName,
-      builder: (context, state) => const CartScreen(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => AuthCubit(),
+        child: const SignupView(),
+      ),
     ),
   ],
 );

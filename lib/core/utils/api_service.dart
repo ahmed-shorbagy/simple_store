@@ -3,7 +3,7 @@ import 'package:simple_store/core/errors/api_error.dart';
 import 'package:simple_store/core/errors/failure.dart';
 import 'package:simple_store/core/utils/logger.dart';
 
-const String baseUrl = 'http://89.116.110.219/api/';
+const String baseUrl = 'https://fakestoreapi.com';
 
 class ApiService {
   final Dio _dio;

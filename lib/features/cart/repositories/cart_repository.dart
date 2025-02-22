@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:simple_store/core/constants/api_constants.dart';
 import 'package:simple_store/features/cart/models/cart_model.dart';
-import 'package:simple_store/features/home/models/product_model.dart';
 
 class CartRepository {
   final Dio _dio;

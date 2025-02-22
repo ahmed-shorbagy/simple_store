@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:simple_store/features/auth/models/auth_model.dart';
+import 'package:simple_store/features/auth/models/user_model.dart';
 
 abstract class AuthState extends Equatable {
   const AuthState();
@@ -13,13 +13,15 @@ class AuthInitial extends AuthState {}
 class AuthLoading extends AuthState {}
 
 class AuthAuthenticated extends AuthState {
-  final AuthModel user;
+  final UserModel user;
 
   const AuthAuthenticated(this.user);
 
   @override
   List<Object?> get props => [user];
 }
+
+class AuthUnauthenticated extends AuthState {}
 
 class AuthError extends AuthState {
   final String message;
@@ -29,5 +31,3 @@ class AuthError extends AuthState {
   @override
   List<Object?> get props => [message];
 }
-
-class AuthUnauthenticated extends AuthState {}

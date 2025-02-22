@@ -38,7 +38,7 @@ class ProductCard extends StatelessWidget {
                   top: Radius.circular(AppTheme.borderRadius.topLeft.x),
                 ),
                 child: AspectRatio(
-                  aspectRatio: 1,
+                  aspectRatio: 1.3,
                   child: FittedBox(
                     fit: BoxFit.contain,
                     child: CachedNetworkImage(
@@ -48,11 +48,9 @@ class ProductCard extends StatelessWidget {
                         color: Colors.grey[100],
                         child: const Center(
                           child: SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 1,
-                            ),
+                            width: 10,
+                            height: 10,
+                            child: CircularProgressIndicator(),
                           ),
                         ),
                       ),

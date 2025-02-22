@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_store/core/theme/app_theme.dart';
+import 'package:simple_store/features/cart/manager/cart_cubit.dart';
 import 'package:simple_store/features/home/manager/home_cubit.dart';
 import 'package:simple_store/features/home/manager/home_state.dart';
 import 'package:simple_store/features/home/widgets/category_chip.dart';
@@ -101,7 +102,11 @@ class _HomeViewState extends State<HomeView> {
                       return ProductCard(
                         product: product,
                         onAddToCart: () {
-                          // TODO: Implement add to cart
+                          context.read<CartCubit>().addToCart(
+                                productId: product.id,
+                                userId: 1,
+                                quantity: 1,
+                              );
                         },
                       );
                     },

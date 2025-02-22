@@ -1,32 +1,33 @@
-class UserModel {
-  final int? id;
+import 'package:equatable/equatable.dart';
+
+class UserModel extends Equatable {
+  final int id;
   final String email;
   final String username;
-  final String? token;
-  final Name? name;
-  final Address? address;
-  final String? phone;
+  final String token;
+  final UserName name;
+  final UserAddress address;
+  final String phone;
 
-  UserModel({
-    this.id,
+  const UserModel({
+    required this.id,
     required this.email,
     required this.username,
-    this.token,
-    this.name,
-    this.address,
-    this.phone,
+    required this.token,
+    required this.name,
+    required this.address,
+    required this.phone,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
+  factory UserModel.fromJson(Map<String, dynamic> json, String token) {
     return UserModel(
-      id: json['id'],
-      email: json['email'] ?? '',
-      username: json['username'] ?? '',
-      token: json['token'],
-      name: json['name'] != null ? Name.fromJson(json['name']) : null,
-      address:
-          json['address'] != null ? Address.fromJson(json['address']) : null,
-      phone: json['phone'],
+      id: json['id'] as int,
+      email: json['email'] as String,
+      username: json['username'] as String,
+      token: token,
+      name: UserName.fromJson(json['name'] as Map<String, dynamic>),
+      address: UserAddress.fromJson(json['address'] as Map<String, dynamic>),
+      phone: json['phone'] as String,
     );
   }
 
@@ -36,26 +37,29 @@ class UserModel {
       'email': email,
       'username': username,
       'token': token,
-      'name': name?.toJson(),
-      'address': address?.toJson(),
+      'name': name.toJson(),
+      'address': address.toJson(),
       'phone': phone,
     };
   }
+
+  @override
+  List<Object?> get props => [id, email, username, token, name, address, phone];
 }
 
-class Name {
+class UserName extends Equatable {
   final String firstname;
   final String lastname;
 
-  Name({
+  const UserName({
     required this.firstname,
     required this.lastname,
   });
 
-  factory Name.fromJson(Map<String, dynamic> json) {
-    return Name(
-      firstname: json['firstname'] ?? '',
-      lastname: json['lastname'] ?? '',
+  factory UserName.fromJson(Map<String, dynamic> json) {
+    return UserName(
+      firstname: json['firstname'] as String,
+      lastname: json['lastname'] as String,
     );
   }
 
@@ -65,16 +69,21 @@ class Name {
       'lastname': lastname,
     };
   }
+
+  String get fullName => '$firstname $lastname';
+
+  @override
+  List<Object?> get props => [firstname, lastname];
 }
 
-class Address {
+class UserAddress extends Equatable {
   final String city;
   final String street;
   final int number;
   final String zipcode;
-  final Geolocation geolocation;
+  final GeoLocation geolocation;
 
-  Address({
+  const UserAddress({
     required this.city,
     required this.street,
     required this.number,
@@ -82,13 +91,14 @@ class Address {
     required this.geolocation,
   });
 
-  factory Address.fromJson(Map<String, dynamic> json) {
-    return Address(
-      city: json['city'] ?? '',
-      street: json['street'] ?? '',
-      number: json['number'] ?? 0,
-      zipcode: json['zipcode'] ?? '',
-      geolocation: Geolocation.fromJson(json['geolocation'] ?? {}),
+  factory UserAddress.fromJson(Map<String, dynamic> json) {
+    return UserAddress(
+      city: json['city'] as String,
+      street: json['street'] as String,
+      number: json['number'] as int,
+      zipcode: json['zipcode'] as String,
+      geolocation:
+          GeoLocation.fromJson(json['geolocation'] as Map<String, dynamic>),
     );
   }
 
@@ -101,21 +111,26 @@ class Address {
       'geolocation': geolocation.toJson(),
     };
   }
+
+  String get fullAddress => '$number $street, $city, $zipcode';
+
+  @override
+  List<Object?> get props => [city, street, number, zipcode, geolocation];
 }
 
-class Geolocation {
+class GeoLocation extends Equatable {
   final String lat;
   final String long;
 
-  Geolocation({
+  const GeoLocation({
     required this.lat,
     required this.long,
   });
 
-  factory Geolocation.fromJson(Map<String, dynamic> json) {
-    return Geolocation(
-      lat: json['lat'] ?? '',
-      long: json['long'] ?? '',
+  factory GeoLocation.fromJson(Map<String, dynamic> json) {
+    return GeoLocation(
+      lat: json['lat'] as String,
+      long: json['long'] as String,
     );
   }
 
@@ -125,4 +140,7 @@ class Geolocation {
       'long': long,
     };
   }
+
+  @override
+  List<Object?> get props => [lat, long];
 }

@@ -33,11 +33,12 @@ class SecureStorageService {
 
   Future<UserModel?> getUser() async {
     final userJson = await _storage.read(key: _userKey);
-    if (userJson == null) return null;
+    final tokenStr = await _storage.read(key: _tokenKey);
+    if (userJson == null || tokenStr == null) return null;
 
     try {
-      final userData = jsonDecode(userJson);
-      return UserModel.fromJson(userData);
+      final userData = jsonDecode(userJson) as Map<String, dynamic>;
+      return UserModel.fromJson(userData, tokenStr);
     } catch (e) {
       return null;
     }

@@ -3,12 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_store/core/errors/simple_bloc_observer.dart';
 
 import 'core/router/app_router.dart';
-import 'core/services/service_locator.dart';
 import 'core/theme/app_theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  setupLocator();
   runApp(const MyApp());
   Bloc.observer = SimpleBLocObserver();
 }

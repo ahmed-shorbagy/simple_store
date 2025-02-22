@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:simple_store/features/auth/manager/auth_cubit.dart';
 import 'package:simple_store/features/auth/views/login_view.dart';
 import 'package:simple_store/features/auth/views/signup_view.dart';
+import 'package:simple_store/features/home/manager/home_cubit.dart';
+import 'package:simple_store/features/home/views/home_view.dart';
 import 'package:simple_store/features/splash/presentation/screens/splash_screen.dart';
 
 class AppRoutes {
@@ -41,6 +43,14 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => BlocProvider(
         create: (context) => AuthCubit(),
         child: const SignupView(),
+      ),
+    ),
+    GoRoute(
+      path: AppRoutes.kHomeView,
+      name: AppRoutes.kHomeName,
+      builder: (context, state) => BlocProvider(
+        create: (context) => HomeCubit(),
+        child: const HomeView(),
       ),
     ),
   ],

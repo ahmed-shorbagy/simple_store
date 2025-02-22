@@ -10,7 +10,7 @@ class AuthRepository {
   Future<AuthModel> login(
       {required String username, required String password}) async {
     try {
-      final response = await _apiService.post('auth/login', data: {
+      final response = await _apiService.post('/auth/login', data: {
         'username': username,
         'password': password,
       });
@@ -27,7 +27,7 @@ class AuthRepository {
     required String password,
   }) async {
     try {
-      final response = await _apiService.post('users', data: {
+      final response = await _apiService.post('/users', data: {
         'email': email,
         'username': username,
         'password': password,

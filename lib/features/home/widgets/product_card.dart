@@ -45,12 +45,20 @@ class ProductCard extends StatelessWidget {
                       imageUrl: product.image,
                       fit: BoxFit.contain,
                       placeholder: (context, url) => Container(
-                        color: Colors.grey[100],
+                        height: 15,
+                        width: 15,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                         child: const Center(
-                          child: SizedBox(
-                            width: 10,
-                            height: 10,
-                            child: CircularProgressIndicator(),
+                          child: Text(
+                            'Loading...',
+                            style: TextStyle(
+                              color: AppTheme.primaryColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),

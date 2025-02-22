@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:simple_store/core/router/app_router.dart';
 import 'package:simple_store/core/theme/app_theme.dart';
+import 'package:simple_store/core/utils/toast_service.dart';
 import 'package:simple_store/features/cart/manager/cart_cubit.dart';
 import 'package:simple_store/features/home/manager/home_cubit.dart';
 import 'package:simple_store/features/home/manager/home_state.dart';
@@ -32,7 +35,7 @@ class _HomeViewState extends State<HomeView> {
         actions: [
           IconButton(
             onPressed: () {
-              // TODO: Implement cart navigation
+              GoRouter.of(context).push(AppRoutes.kCartView);
             },
             icon: const Badge(
               label: Text('0'),
@@ -49,7 +52,13 @@ class _HomeViewState extends State<HomeView> {
           }
 
           if (state is HomeError) {
-            return _buildErrorView(state.message);
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ToastService.showCustomToast(
+                message: state.message,
+                type: ToastType.error,
+              );
+            });
+            return const SizedBox.shrink();
           }
 
           if (state is HomeLoaded) {

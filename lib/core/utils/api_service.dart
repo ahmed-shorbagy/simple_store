@@ -62,7 +62,7 @@ class ApiService {
       // Check if the response contains error messages
       if (response.data is Map<String, dynamic>) {
         final responseData = response.data as Map<String, dynamic>;
-
+        Logger.info(responseData.toString());
         return responseData;
       } else {
         throw DioException(

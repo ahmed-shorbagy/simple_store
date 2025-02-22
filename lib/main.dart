@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_store/core/errors/simple_bloc_observer.dart';
 
 import 'core/router/app_router.dart';
 import 'core/services/service_locator.dart';
 import 'core/theme/app_theme.dart';
-import 'features/auth/cubits/auth_cubit.dart';
-import 'features/cart/cubits/cart_cubit.dart';
-import 'features/home/cubits/home_cubit.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   runApp(const MyApp());
+  Bloc.observer = SimpleBLocObserver();
 }
 
 class MyApp extends StatelessWidget {
@@ -19,20 +18,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (_) => locator<AuthCubit>()),
-        BlocProvider(create: (_) => locator<HomeCubit>()),
-        BlocProvider(create: (_) => locator<CartCubit>()),
-      ],
-      child: MaterialApp.router(
-        title: 'Simple Store',
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
-        themeMode: ThemeMode.system,
-        routerConfig: appRouter,
-        debugShowCheckedModeBanner: false,
-      ),
+    return MaterialApp.router(
+      title: 'Simple Store',
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.system,
+      routerConfig: appRouter,
+      debugShowCheckedModeBanner: false,
     );
   }
 }

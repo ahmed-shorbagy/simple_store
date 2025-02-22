@@ -1,28 +1,25 @@
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../features/auth/cubits/auth_cubit.dart';
-import '../../features/auth/repositories/auth_repository.dart';
 import '../../features/cart/cubits/cart_cubit.dart';
 import '../../features/home/cubits/home_cubit.dart';
 import '../../features/home/repositories/home_repository.dart';
 import 'api_service.dart';
 
-final GetIt locator = GetIt.instance;
+final GetIt sl = GetIt.instance;
 
-void setupLocator() {
-  // Services
-  locator.registerLazySingleton<ApiService>(() => ApiService());
+Future<void> setupLocator() async {
+  // Core
+  sl.registerLazySingleton(() => ApiService());
+  final sharedPrefs = await SharedPreferences.getInstance();
+  sl.registerLazySingleton(() => sharedPrefs);
 
   // Repositories
-  locator.registerLazySingleton<AuthRepository>(() => AuthRepository());
-  locator.registerLazySingleton<HomeRepository>(() => HomeRepository());
+  sl.registerLazySingleton(() => HomeRepository());
 
   // Cubits
-  locator
-      .registerFactory<AuthCubit>(() => AuthCubit(locator<AuthRepository>()));
-  locator
-      .registerFactory<HomeCubit>(() => HomeCubit(locator<HomeRepository>()));
-  locator.registerLazySingleton<CartCubit>(() => CartCubit());
+  sl.registerFactory<HomeCubit>(() => HomeCubit(sl<HomeRepository>()));
+  sl.registerLazySingleton<CartCubit>(() => CartCubit());
 
   // ViewModels will be registered here when we create the features
 }

@@ -80,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Text(
                     'Error: ${state.message}',
-                    style: AppStyles.bodyMedium,
+                    style: AppStyles.body2,
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 16),
@@ -152,15 +152,15 @@ class _ProductCard extends StatelessWidget {
               children: [
                 Text(
                   product.name,
-                  style: AppStyles.bodyLarge,
+                  style: AppStyles.body1,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
                 const SizedBox(height: 4),
                 Text(
                   '\$${product.price.toStringAsFixed(2)}',
-                  style: AppStyles.bodyMedium.copyWith(
-                    color: AppColors.primaryColor,
+                  style: AppStyles.body2.copyWith(
+                    color: AppColors.primary,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -172,7 +172,7 @@ class _ProductCard extends StatelessWidget {
                       context.read<CartCubit>().addToCart(product);
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryColor,
+                      backgroundColor: AppColors.primary,
                       padding: const EdgeInsets.symmetric(vertical: 8),
                     ),
                     child: const Text('Add to Cart'),

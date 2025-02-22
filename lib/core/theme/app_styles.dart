@@ -3,42 +3,51 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
 class AppStyles {
-  static const TextStyle headingLarge = TextStyle(
+  static const TextStyle heading1 = TextStyle(
     fontSize: 28,
     fontWeight: FontWeight.bold,
-    color: AppColors.textColor,
+    color: AppColors.textPrimary,
   );
 
-  static const TextStyle headingMedium = TextStyle(
+  static const TextStyle heading2 = TextStyle(
     fontSize: 24,
     fontWeight: FontWeight.bold,
-    color: AppColors.textColor,
+    color: AppColors.textPrimary,
   );
 
-  static const TextStyle headingSmall = TextStyle(
+  static const TextStyle heading3 = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,
-    color: AppColors.textColor,
+    color: AppColors.textPrimary,
   );
 
-  static const TextStyle bodyLarge = TextStyle(
+  static const TextStyle body1 = TextStyle(
     fontSize: 16,
-    color: AppColors.textColor,
+    color: AppColors.textPrimary,
   );
 
-  static const TextStyle bodyMedium = TextStyle(
+  static const TextStyle body2 = TextStyle(
     fontSize: 14,
-    color: AppColors.textColor,
+    color: AppColors.textPrimary,
   );
 
-  static const TextStyle bodySmall = TextStyle(
+  static const TextStyle caption = TextStyle(
     fontSize: 12,
-    color: AppColors.subtitleColor,
+    color: AppColors.textSecondary,
   );
 
-  static const TextStyle buttonText = TextStyle(
+  static const TextStyle button = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w600,
-    color: Colors.white,
+    color: AppColors.textLight,
   );
+
+  static ButtonStyle get primaryButton => ElevatedButton.styleFrom(
+        backgroundColor: AppColors.primary,
+        foregroundColor: AppColors.textLight,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      );
 }

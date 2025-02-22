@@ -43,7 +43,7 @@ class CartScreen extends StatelessWidget {
                     const SizedBox(height: 16),
                     Text(
                       'Your cart is empty',
-                      style: AppStyles.bodyLarge.copyWith(color: Colors.grey),
+                      style: AppStyles.body1.copyWith(color: Colors.grey),
                     ),
                   ],
                 ),
@@ -88,15 +88,15 @@ class CartScreen extends StatelessWidget {
                                   children: [
                                     Text(
                                       item.product.name,
-                                      style: AppStyles.bodyLarge,
+                                      style: AppStyles.body1,
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                     const SizedBox(height: 4),
                                     Text(
                                       '\$${item.product.price.toStringAsFixed(2)}',
-                                      style: AppStyles.bodyMedium.copyWith(
-                                        color: AppColors.primaryColor,
+                                      style: AppStyles.body2.copyWith(
+                                        color: AppColors.primary,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -116,7 +116,7 @@ class CartScreen extends StatelessWidget {
                                   ),
                                   Text(
                                     '${item.quantity}',
-                                    style: AppStyles.bodyLarge,
+                                    style: AppStyles.body1,
                                   ),
                                   IconButton(
                                     icon: const Icon(Icons.add),
@@ -166,12 +166,12 @@ class CartScreen extends StatelessWidget {
                           children: [
                             const Text(
                               'Total',
-                              style: AppStyles.bodyMedium,
+                              style: AppStyles.body1,
                             ),
                             Text(
                               '\$${state.total.toStringAsFixed(2)}',
-                              style: AppStyles.headingMedium.copyWith(
-                                color: AppColors.primaryColor,
+                              style: AppStyles.heading2.copyWith(
+                                color: AppColors.primary,
                               ),
                             ),
                           ],
@@ -181,7 +181,7 @@ class CartScreen extends StatelessWidget {
                             // TODO: Implement checkout
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.primaryColor,
+                            backgroundColor: AppColors.primary,
                             padding: const EdgeInsets.symmetric(
                               horizontal: 32,
                               vertical: 16,

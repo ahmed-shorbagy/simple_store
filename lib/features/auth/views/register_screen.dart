@@ -60,7 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   const Text(
                     'Create Account',
-                    style: AppStyles.headingLarge,
+                    style: AppStyles.heading1,
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 32),
@@ -124,7 +124,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ? const CircularProgressIndicator()
                             : const Text(
                                 'Register',
-                                style: AppStyles.buttonText,
+                                style: AppStyles.button,
                               ),
                       );
                     },

@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   const Text(
                     'Welcome Back',
-                    style: AppStyles.headingLarge,
+                    style: AppStyles.heading1,
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 32),
@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ? const CircularProgressIndicator()
                             : const Text(
                                 'Login',
-                                style: AppStyles.buttonText,
+                                style: AppStyles.button,
                               ),
                       );
                     },
